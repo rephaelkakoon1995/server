@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as dotenv from 'dotenv';
 import * as bodyParser from 'body-parser';
+import * as mysql from "mysql";
 
 import { getAllUsersInfo, addNewUser } from './services/manageUsers';
 
@@ -9,16 +10,18 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send('Welcome to the club'));
+app.get('/', (req, res) => {
+    res.send('Welcome to the club')
+});
 
 app.get('/getAllUsersInfo', (req:express.Request, res:express.Response) => {
     getAllUsersInfo(req,res);
 });
 
 app.post('/addNewUser', (req:express.Request,res:express.Response) => {
-    const userName = req.body.name ? req.body.name : '';
+    const newUser = req.body.newUser ? req.body.newUser : "";
 
-    addNewUser(req,res,userName);
+    addNewUser(req,res,newUser);
 });
 
 app.listen(process.env.PORT, () => console.log(`app listening on port ${process.env.PORT}!`));

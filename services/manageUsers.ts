@@ -1,16 +1,18 @@
 import * as express from 'express';
 
-import { readFromFile, appendToFile } from './manageFile';
+import {  appendToDB, readFromDB } from './manageFile';
 
 export const getAllUsersInfo = (req: express.Request, res: express.Response) => {
-    readFromFile(process.env.FILE_NAME)
-        .then(fileContent => res.send(arrangeStringToArray(String(fileContent))))
+    readFromDB()
+        .then(table => {
+            res.send(convertTableToUsers(table))
+    })
         .catch(err => console.log(err));
 }
 
-export const addNewUser = (req: express.Request, res: express.Response, userName: string) => {
-    if (userName)
-        appendToFile(process.env.FILE_NAME, `\n${userName}:0`)
+export const addNewUser = (req: express.Request, res: express.Response, newUser: string) => {
+    if (newUser)
+        appendToDB(newUser)
             .then(() => res.send("user added"))
             .catch(() => res.send("user not added"))
     else
@@ -31,6 +33,18 @@ const arrangeStringToArray = (usersTextFormat: String): User[] => {
         });
     });
 
+    return usersArray;
+}
+
+const convertTableToUsers = (tableRows : any) : User[] => {
+    const usersArray: User[] = [];
+    tableRows.forEach((row) => {
+        usersArray.push({
+            name: row.name,
+            rate: row.place
+        });
+    });
+    
     return usersArray;
 }
 
