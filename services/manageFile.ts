@@ -4,6 +4,6 @@ export const readFromFile = (fileName: string) : Promise<any> => {
    return readFile(fileName);
 };
 
-export const writeToFile = (fileName: string, data: any) : Promise<any> => {
+export const appendToFile = (fileName: string, data: any) : Promise<any> => {
     return appendFile(fileName, data);
 };
