@@ -24,4 +24,8 @@ app.post('/addNewUser', (req:express.Request,res:express.Response) => {
     addNewUser(req,res,newUser);
 });
 
+app.get('/nextVolunteer', (req:express.Request,res:express.Response) => {
+    res.send('רפאל');
+});
+
 app.listen(process.env.PORT, () => console.log(`app listening on port ${process.env.PORT}!`));
