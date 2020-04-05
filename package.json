@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "promise-fs": "^2.1.0",
+    "rimraf": "^3.0.2",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
