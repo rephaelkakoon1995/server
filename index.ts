@@ -25,7 +25,9 @@ app.get('/', (req, res) => {
 // });
 
 app.get('/nextVolunteer', (req:express.Request,res:express.Response) => {
-    res.send('רפאל');
+    const volunteers = ['רפאל','דוד','שירן','עדן'];
+    const volunteerIndex = Math.floor((Math.random() * volunteers.length));
+    res.send(volunteers[volunteerIndex]);
 });
 
 app.listen(process.env.PORT, () => console.log(`app listening on port ${process.env.PORT}!`));
