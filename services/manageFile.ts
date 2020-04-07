@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 });
 connection.connect(function(error) {
     if(!!error) {
-        console.timeLog("error connecting to db");
+        console.log(error);
     } else {
         console.log("connected to the db");
     }
@@ -36,8 +36,13 @@ export const readFromDB = () : Promise<any> => {
     });
 }
 
-export const appendToDB = (data: any) : Promise<any> => {
+export const updateDB = (queryString : string) : Promise<any> => {
     return new Promise(function(resolve, reject) {
-        connection.query("insert into " + process.env.TABLENAME + "(name, place) values(" + data.name + "," + data.rate + ");");
+        connection.query(queryString, function(error){
+            if (error) {
+                return reject(error);
+            } 
+            resolve(true);
+        });
     });
 }
