@@ -17,12 +17,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/getAllUsersInfo', (req:express.Request, res:express.Response) => {
-    getAllUsersInfo(req,res);
+     getAllUsersInfo(req,res);
 });
 
 app.post('/addNewUser', (req:express.Request,res:express.Response) => {
     const newUser = req.query.newUser ? req.query.newUser : "";
     addNewUser(req,res,newUser);
+});
+
+app.get('/nextVolunteer', (req:express.Request,res:express.Response) => {
+    const volunteers = ['רפאל','דוד','שירן','עדן'];
+    const volunteerIndex = Math.floor((Math.random() * volunteers.length));
+    res.send(volunteers[volunteerIndex]);
 });
 
 app.post('/updateUser', (req:express.Request,res:express.Response) => {
