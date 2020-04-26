@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import {  updateDB, readFromDB } from './manageFile';
 
 export const getAllUsersInfo = (req: express.Request, res: express.Response) => {
-    readFromDB()
+    readFromDB(process.env.TORANIMTABLENAME)
         .then(table => {
             res.send(convertTableToUsers(table))
     })
@@ -13,7 +13,7 @@ export const getAllUsersInfo = (req: express.Request, res: express.Response) => 
 
 export const addNewUser = (req: express.Request, res: express.Response, newUser: string) => {
     if (newUser) {
-        const addUserQuery = "insert into " + process.env.TABLENAME + '(name) values("' + JSON.parse(newUser).name + '");' ; 
+        const addUserQuery = "insert into " + process.env.TORANIMTABLENAME + '(name) values("' + JSON.parse(newUser).name + '");' ; 
 
         updateDB(addUserQuery)
             .then(() => res.send("user added"))
@@ -25,7 +25,7 @@ export const addNewUser = (req: express.Request, res: express.Response, newUser:
 
 export const updateUser = (req: express.Request, res: express.Response, userToUpdate: User) => {
     if (userToUpdate) {
-        const updateUserQuery = "UPDATE " + process.env.TABLENAME + " SET name='" + userToUpdate.name + "', points=" + userToUpdate.points +
+        const updateUserQuery = "UPDATE " + process.env.TORANIMTABLENAME + " SET name='" + userToUpdate.name + "', points=" + userToUpdate.points +
         ", lastShiftDate='" + moment(userToUpdate.lastShiftDate).format("YYYY-MM-DD") + "' WHERE ID=" + userToUpdate.ID ;
 
         updateDB(updateUserQuery)

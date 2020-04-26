@@ -25,9 +25,9 @@ export const appendToFile = (fileName: string, data: any) : Promise<any> => {
     return appendFile(fileName, data);
 };
 
-export const readFromDB = () : Promise<any> => {
+export const readFromDB = (table : string) : Promise<any> => {
     return new Promise(function(resolve, reject) {
-        connection.query("select * from " + process.env.TABLENAME, function(error, rows) {
+        connection.query("select * from " + table, function(error, rows) {
             if (error) {
                 return reject(error);
             }
